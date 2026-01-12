@@ -3,7 +3,7 @@ sudo apt install  libboost-serialization-dev libboost-filesystem-dev
 
 echo "Installing Pangolin"
 # Clone Pangolin along with it's submodules
-cd ../Thirdparty
+cd Thirdparty
 git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
 cd Pangolin
 # Install dependencies (as described above, or your preferred method)
