@@ -237,7 +237,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
     }
 
     // Fix verbosity
-    Verbose::SetTh(Verbose::VERBOSITY_DEBUG);
+    Verbose::SetTh(Verbose::VERBOSITY_NORMAL);
 
 }
 
@@ -1330,6 +1330,11 @@ int System::GetTrackingState()
 {
     unique_lock<mutex> lock(mMutexState);
     return mTrackingState;
+}
+
+long unsigned int System::GetMapID() const
+{
+    return mpAtlas->GetCurrentMap()->GetId();
 }
 
 vector<MapPoint*> System::GetTrackedMapPoints()
