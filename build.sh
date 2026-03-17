@@ -11,7 +11,7 @@ cd Pangolin
 
 # Configure and build
 cmake -B build
-cmake --build build4
+cmake --build build
 cd ../..
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
