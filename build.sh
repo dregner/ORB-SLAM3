@@ -1,18 +1,18 @@
-echo "Installing dependencies"
-sudo apt install  libboost-serialization-dev libboost-filesystem-dev
+#echo "Installing dependencies"
+#sudo apt install  libboost-serialization-dev libboost-filesystem-dev
 
-echo "Installing Pangolin"
+#echo "Installing Pangolin"
 # Clone Pangolin along with it's submodules
-cd Thirdparty
-git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
-cd Pangolin
+#cd Thirdparty
+#git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
+#cd Pangolin
 # Install dependencies (as described above, or your preferred method)
-./scripts/install_prerequisites.sh recommended
+#./scripts/install_prerequisites.sh recommended
 
 # Configure and build
-cmake -B build
-cmake --build build
-cd ../..
+#cmake -B build
+#cmake --build build
+#cd ../..
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
 cd Thirdparty/DBoW2
