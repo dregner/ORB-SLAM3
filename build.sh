@@ -1,18 +1,29 @@
-#echo "Installing dependencies"
-#sudo apt install  libboost-serialization-dev libboost-filesystem-dev
+echo "Installing dependencies"
+sudo apt install  libboost-serialization-dev libboost-filesystem-dev
 
-#echo "Installing Pangolin"
-# Clone Pangolin along with it's submodules
-#cd Thirdparty
-#git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
-#cd Pangolin
-# Install dependencies (as described above, or your preferred method)
-#./scripts/install_prerequisites.sh recommended
+PANGOLIN_DIR="Thirdparty/Pangolin"
 
-# Configure and build
-#cmake -B build
-#cmake --build build
-#cd ../..
+# Check if the build directory already exists
+if [ -d "$PANGOLIN_DIR/build" ]; then
+    echo "Pangolin is already built in $PANGOLIN_DIR. Skipping installation."
+else
+    echo "Installing Pangolin..."
+    
+    # Clone Pangolin along with its submodules
+    cd Thirdparty
+    git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
+    cd Pangolin
+    
+    # Install dependencies
+    ./scripts/install_prerequisites.sh recommended
+
+    # Configure and build
+    cmake -B build
+    cmake --build build
+    
+    cd ../..
+    echo "Pangolin installation complete."
+fi
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
 cd Thirdparty/DBoW2
@@ -51,5 +62,5 @@ echo "Configuring and building ORB_SLAM3 ..."
 
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake  -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=OFF ..
 make -j4
