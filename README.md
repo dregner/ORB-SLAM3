@@ -1,37 +1,65 @@
-# ORB-SLAM3-STEREO-FIXED
+# ORB-SLAM3
 
-This repository is a modified version of [ORB_SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3)  
+This repository is a specialized fork of [ORB_SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3), maintained by the **VORIS Project** at **LabMetro - UFSC**. It features critical fixes for modern Ubuntu distributions.
 
---- 
+---
 
-## Modification
-- Succesfully tested in **Ubuntu 22.04** and **ROS2 Humble**(with OpenCV 4.5.4)
-- Update from C++11 to C++14
-- Fixed unexpected <span style="color:red">error</span> when start **STEREO** mode with **Rectified** camera type  
+## Key Enhancements
 
-## How to build
-Clone the repository:
+* **Full ROS 2 Compatibility**: Tested and validated on **Ubuntu 22.04 (Humble)** and **Ubuntu 24.04 (Jazzy)**.
+* **Modern C++ Standard**: Upgraded to **C++14** to ensure seamless integration with modern middleware and ROS 2 headers.
+* **Stereo Rectification Fix**: Resolved a known crash in the original repository when initializing **STEREO** mode with the **Rectified** camera type.
+* **Streamlined Build System**: All dependencies, including **Pangolin**, **DBoW2**, and **g2o**, are handled directly within the integrated build scripts.
+
+---
+
+## Build Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Projeto-Voris/ORB-SLAM3.git ORB_SLAM3
+
 ```
-git clone https://github.com/Projeto-Voris/ORB-SLAM3-STEREO-FIXED.git ORB_SLAM3
-```
 
-Install {Pangloin](https://github.com/stevenlovegrove/Pangolin) on version 0.9.2
-```
-# Clone Pangolin along with it's submodules
-cd ORB_SLAM3/Thirdparty
-git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
-cd Pangolin
-# Install dependencies (as described above, or your preferred method)
-./scripts/install_prerequisites.sh recommended
+### 2. Full Installation
 
-# Configure and build
-cmake -B build
-cmake --build build
-```
-Execute:
-```
+The `build.sh` script is configured to compile the third-party libraries (including Pangolin v0.9.2) and the core ORB-SLAM3 library in one go.
+
+```bash
 cd ORB_SLAM3
 chmod +x build.sh
 ./build.sh
+
 ```
-This will create **libORB_SLAM3.so**  at *lib* folder and the executables in *Examples* folder.
+
+### 3. Verification
+
+After the script finishes:
+
+* The shared library **`libORB_SLAM3.so`** will be in the `lib/` directory.
+* Standalone examples (Monocular, Stereo, etc.) will be available in the `Examples/` directory.
+
+---
+
+## Integration with VORIS ROS 2 Wrapper
+
+This fork is designed to work out-of-the-box with our [ORB_SLAM3_ROS2](https://github.com/Projeto-Voris/ORB_SLAM3_ROS2) wrapper.
+
+When building the ROS 2 wrapper, ensure the `ORB_SLAM3_ROOT_DIR` points to this directory so the compiler can locate the `libORB_SLAM3.so` and the associated headers.
+
+### Common Setup Step
+
+If you encounter header visibility issues during the wrapper build, you may need to manually install the Sophus headers compiled by the script:
+
+```bash
+cd Thirdparty/Sophus/build
+sudo make install
+
+```
+
+---
+
+## Project Context
+
+This library is a core component of the **VORIS** (Veículo Operado Remotamente para Inspeção Submarina) system. It provides the high-fidelity visual odometry required for autonomous underwater inspection of oil and gas infrastructure.
