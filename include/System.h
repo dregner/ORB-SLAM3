@@ -232,7 +232,7 @@ private:
     // a pose graph optimization and full bundle adjustment (in a new thread) afterwards.
     LoopClosing* mpLoopCloser;
 
-    // The viewer draws the map and the current camera pose. It uses Pangolin.
+    // The viewer displays the current camera frame using OpenCV.
     Viewer* mpViewer;
 
     FrameDrawer* mpFrameDrawer;

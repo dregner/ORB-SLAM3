@@ -45,8 +45,7 @@ public:
 
     void newParameterLoader(Settings* settings);
 
-    // Main thread function. Draw points, keyframes, the current camera pose and the last processed
-    // frame. Drawing is refreshed according to the camera fps. We use Pangolin.
+    // Displays the last processed frame using OpenCV at the camera frame rate.
     void Run();
 
     void RequestFinish();
@@ -79,8 +78,6 @@ private:
     double mT;
     float mImageWidth, mImageHeight;
     float mImageViewerScale;
-
-    float mViewpointX, mViewpointY, mViewpointZ, mViewpointF;
 
     bool CheckFinish();
     void SetFinish();

@@ -43,12 +43,10 @@ else()
 endif()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
-set(Pangolin_DIR "/home/voris/Pangolin")
 
 # Find dependencies
 find_package(OpenCV 4.2 REQUIRED)
 find_package(Eigen3 3.1.0 REQUIRED)
-find_package(Pangolin REQUIRED)
 find_package(Boost 1.71 REQUIRED COMPONENTS filesystem system serialization)
 find_package(realsense2)
 
@@ -64,7 +62,6 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/include/CameraModels
   ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus
   ${EIGEN3_INCLUDE_DIR}
-  ${Pangolin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
 
@@ -90,7 +87,6 @@ add_subdirectory(Thirdparty/g2o)
 target_link_libraries(${PROJECT_NAME}
   ${OpenCV_LIBS}
   ${EIGEN3_LIBS}
-  ${Pangolin_LIBRARIES}
   ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
   ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
   ${Boost_LIBRARIES}

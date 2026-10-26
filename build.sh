@@ -1,29 +1,6 @@
 echo "Installing dependencies"
 sudo apt install  libboost-serialization-dev libboost-filesystem-dev
 
-PANGOLIN_DIR="Thirdparty/Pangolin"
-
-# Check if the build directory already exists
-if [ -d "$PANGOLIN_DIR/build" ]; then
-    echo "Pangolin is already built in $PANGOLIN_DIR. Skipping installation."
-else
-    echo "Installing Pangolin..."
-    
-    # Clone Pangolin along with its submodules
-    cd Thirdparty
-    git clone --recursive -b v0.9.2 https://github.com/stevenlovegrove/Pangolin.git
-    cd Pangolin
-    
-    # Install dependencies
-    ./scripts/install_prerequisites.sh recommended
-
-    # Configure and build
-    cmake -B build
-    cmake --build build
-    
-    cd ../..
-    echo "Pangolin installation complete."
-fi
 echo "Configuring and building Thirdparty/DBoW2 ..."
 
 cd Thirdparty/DBoW2
