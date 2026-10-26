@@ -179,7 +179,7 @@ Eigen::Vector3d ImuCamPose::ProjectStereo(const Eigen::Vector3d &Xw, int cam_idx
     Eigen::Vector3d Pc = Rcw[cam_idx] * Xw + tcw[cam_idx];
     Eigen::Vector3d pc;
     double invZ = 1/Pc(2);
-    pc.head(2) = pCamera[cam_idx]->project(Pc);
+    pc.head<2>() = pCamera[cam_idx]->project(Pc);
     pc(2) = pc(0) - bf*invZ;
     return pc;
 }
@@ -530,7 +530,9 @@ void EdgeInertial::computeError()
     const Eigen::Vector3d ep = VP1->estimate().Rwb.transpose()*(VP2->estimate().twb - VP1->estimate().twb
                                                                - VV1->estimate()*dt - g*dt*dt/2) - dP;
 
-    _error << er, ev, ep;
+    _error.segment<3>(0) = er;
+    _error.segment<3>(3) = ev;
+    _error.segment<3>(6) = ep;
 }
 
 void EdgeInertial::linearizeOplus()
@@ -636,7 +638,9 @@ void EdgeInertialGS::computeError()
     const Eigen::Vector3d ev = VP1->estimate().Rwb.transpose()*(s*(VV2->estimate() - VV1->estimate()) - g*dt) - dV;
     const Eigen::Vector3d ep = VP1->estimate().Rwb.transpose()*(s*(VP2->estimate().twb - VP1->estimate().twb - VV1->estimate()*dt) - g*dt*dt/2) - dP;
 
-    _error << er, ev, ep;
+    _error.segment<3>(0) = er;
+    _error.segment<3>(3) = ev;
+    _error.segment<3>(6) = ep;
 }
 
 void EdgeInertialGS::linearizeOplus()
@@ -741,7 +745,11 @@ void EdgePriorPoseImu::computeError()
     const Eigen::Vector3d ebg = VG->estimate() - bg;
     const Eigen::Vector3d eba = VA->estimate() - ba;
 
-    _error << er, et, ev, ebg, eba;
+    _error.segment<3>(0) = er;
+    _error.segment<3>(3) = et;
+    _error.segment<3>(6) = ev;
+    _error.segment<3>(9) = ebg;
+    _error.segment<3>(12) = eba;
 }
 
 void EdgePriorPoseImu::linearizeOplus()

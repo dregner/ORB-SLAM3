@@ -4044,17 +4044,19 @@ void Optimizer::MergeInertialBA(KeyFrame* pCurrKF, KeyFrame* pMergeKF, bool *pbS
         {
             // Using mnBALocalForKF we avoid redundance here, one MP can not be added several times to lLocalMapPoints
             MapPoint* pMP = *vit;
-            if(pMP)
-                if(!pMP->isBad())
-                    if(pMP->mnBALocalForKF!=pCurrKF->mnId)
-                    {
-                        mLocalObs[pMP]=1;
-                        lLocalMapPoints.push_back(pMP);
-                        pMP->mnBALocalForKF=pCurrKF->mnId;
-                    }
-                    else {
-                        mLocalObs[pMP]++;
-                    }
+            if(pMP && !pMP->isBad())
+            {
+                if(pMP->mnBALocalForKF!=pCurrKF->mnId)
+                {
+                    mLocalObs[pMP]=1;
+                    lLocalMapPoints.push_back(pMP);
+                    pMP->mnBALocalForKF=pCurrKF->mnId;
+                }
+                else
+                {
+                    mLocalObs[pMP]++;
+                }
+            }
         }
     }
 
@@ -5294,7 +5296,6 @@ void Optimizer::OptimizeEssentialGraph4DoF(Map* pMap, KeyFrame* pLoopKF, KeyFram
                                        const LoopClosing::KeyFrameAndPose &CorrectedSim3,
                                        const map<KeyFrame *, set<KeyFrame *> > &LoopConnections)
 {
-    typedef g2o::BlockSolver< g2o::BlockSolverTraits<4, 4> > BlockSolver_4_4;
 
     // Setup optimizer
     g2o::SparseOptimizer optimizer;

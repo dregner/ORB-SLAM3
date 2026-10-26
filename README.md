@@ -33,6 +33,15 @@ chmod +x build.sh
 
 ```
 
+The build scripts pass `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` to every CMake
+configuration, including bundled dependencies, for Jetson builds using CMake 4.
+For a manual build, use:
+
+```bash
+cmake -S . -B build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j4
+```
+
 ### 3. Verification
 
 After the script finishes:

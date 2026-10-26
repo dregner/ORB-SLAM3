@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 project(ORB_SLAM3)
 
 IF(NOT CMAKE_BUILD_TYPE)
@@ -48,7 +48,7 @@ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 find_package(OpenCV 4.2 REQUIRED)
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Boost 1.71 REQUIRED COMPONENTS filesystem system serialization)
-find_package(realsense2)
+find_package(realsense2 QUIET)
 
 # Boost diagnostics
 message(STATUS "Boost found: ${Boost_FOUND}")

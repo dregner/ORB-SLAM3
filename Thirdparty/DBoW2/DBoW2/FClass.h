@@ -32,8 +32,8 @@ class FClass
    * @param descriptors
    * @param mean mean descriptor
    */
-  virtual void meanValue(const std::vector<pDescriptor> &descriptors, 
-    TDescriptor &mean) = 0;
+  static void meanValue(const std::vector<pDescriptor> &descriptors,
+    TDescriptor &mean);
   
   /**
    * Calculates the distance between two descriptors
