@@ -1322,6 +1322,11 @@ void System::SaveDebugData(const int &initIdx)
 }
 
 
+cv::Mat System::GetTrackingImage()
+{
+    return mpFrameDrawer->DrawFrame();
+}
+
 int System::GetTrackingState()
 {
     unique_lock<mutex> lock(mMutexState);

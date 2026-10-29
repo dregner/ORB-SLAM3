@@ -179,6 +179,9 @@ public:
     // Information from most recent processed frame
     // You can call this right after TrackMonocular (or stereo or RGBD)
     int GetTrackingState();
+    // Uses the rectified tracking image and the drawer's inlier masks.
+    // Call immediately after TrackStereo, from the same tracking thread.
+    cv::Mat GetTrackingImage();
     long unsigned int GetMapID() const;
     std::vector<MapPoint*> GetTrackedMapPoints();
     std::vector<MapPoint*> GetAllMapPoints();
